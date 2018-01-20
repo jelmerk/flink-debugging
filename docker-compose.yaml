@@ -34,4 +34,5 @@ services:
     volumes:
       - "./flink/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml"
       - "./target:/app"
+      - "./heapdumps:/heapdumps"
 

@@ -10,9 +10,11 @@
 
        mvn clean package
  
-4. Deploy the job
+4. Deploy the job a few times
 
-       docker exec -i -t flink /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar
+       docker exec -it flink /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode1
+       docker exec -it flink /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode2
+       docker exec -it flink /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode3
 
 4. View the flink console output 
 
@@ -22,7 +24,7 @@
 
    Leave the console output running then in another terminal start the console producer 
 
-       docker exec -i -t kafka /opt/kafka/bin/kafka-console-producer.sh --topic mytopic --broker-list kafka:9092
+       docker exec -it kafka /opt/kafka/bin/kafka-console-producer.sh --topic mytopic --broker-list kafka:9092
        
    Enter the following lines of text
    
@@ -34,5 +36,3 @@
 6. Check the prometheus endpoints
 
        curl http://localhost:9249/
-       
-7. 

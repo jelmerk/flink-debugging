@@ -36,6 +36,8 @@ classloader.resolve-order: parent-first
 
 taskmanager.numberOfTaskSlots: 3
 
+env.java.opts.taskmanager: -J-XX:HeapDumpPath=/heapdumps
+
 #==============================================================================
 # Common
 #==============================================================================
