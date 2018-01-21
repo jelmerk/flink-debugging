@@ -30,8 +30,13 @@ public class StreamingJob {
 			@Override
 			public String map(String value) throws Exception {
 				if (selfDestructCode.equals(value)) {
-					throw new RuntimeException("Boom!");
+					throw new BoomException();
 				}
+
+				if ("print-classloader".equals(value)) {
+					System.out.println(getClass().getClassLoader());
+				}
+
 				return value;
 			}
 		});

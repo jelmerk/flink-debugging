@@ -36,3 +36,35 @@
 6. Check the prometheus endpoints
 
        curl http://localhost:9249/
+
+
+
+Creating a stackdump
+
+       docker exec -ti flink /bin/bash -c "su flink -c 'jstack 8'"
+
+Forcing a garbage collect
+
+       docker exec -ti flink /bin/bash -c "su flink -c 'jcmd 8 GC.run'"
+
+Creating a heapdump
+
+       docker exec -ti flink /bin/bash -c "su flink -c 'jmap -dump:format=b,file=/heapdumps/dump.bin 8'"
+
+
+Denying traffic to kafka
+
+       docker exec -ti flink iptables -A OUTPUT -d kafka -j DROP
+       docker exec -ti flink iptables -A OUTPUT -d kafka -j REJECT
+
+
+Allowing traffic to kafka
+
+       docker exec -ti flink iptables -A OUTPUT -d kafka -j ACCEPT
+
+
+
+
+
+select * from "org.apache.flink.runtime.execution.librarycache.FlinkUserCodeClassLoaders$ParentFirstClassLoader"
+

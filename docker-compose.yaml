@@ -31,6 +31,7 @@ services:
     links:
       - kafka:kafka
     command: local
+    privileged: true
     volumes:
       - "./flink/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml"
       - "./target:/app"
