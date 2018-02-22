@@ -19,21 +19,35 @@ services:
       - KAFKA_ADVERTISED_HOST_NAME=kafka
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
 
-  flink:
+  jobmanager:
     image: ecg/flink_1.4.0-prometheus-hadoop28-scala_2.11
-    container_name: flink
+    container_name: jobmanager
     ports:
-      - "6121:6121"
-      - "6122:6122"
-      - "6123:6123"
+      - "6123"
       - "8081:8081"
-      - "9249:9249"
     links:
       - kafka:kafka
-    command: local
+    command: jobmanager
     privileged: true
     volumes:
       - "./flink/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml"
       - "./target:/app"
       - "./heapdumps:/heapdumps"
 
+  taskmanager:
+    image: ecg/flink_1.4.0-prometheus-hadoop28-scala_2.11
+    container_name: taskmanager
+    expose:
+      - "6121"
+      - "6122"
+    links:
+      - kafka:kafka
+      - jobmanager:jobmanager
+    command: taskmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    privileged: true
+    volumes:
+      - "./flink/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml"
+      - "./target:/app"
+      - "./heapdumps:/heapdumps"

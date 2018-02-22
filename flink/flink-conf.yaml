@@ -17,9 +17,8 @@
 ################################################################################
 
 
-#==============================================================================
-# Custom configuration for the example
-#==============================================================================
+env.java.opts.jobmanager: "-XX:HeapDumpPath=/heapdumps -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=4005"
+env.java.opts.taskmanager: "-XX:HeapDumpPath=/heapdumps -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
 
 restart-strategy: fixed-delay
 restart-strategy.fixed-delay.attempts: 30
@@ -36,8 +35,6 @@ classloader.resolve-order: parent-first
 
 taskmanager.numberOfTaskSlots: 3
 
-# env.java.opts.taskmanager: -J-XX:HeapDumpPath=/heapdumps
-
 #==============================================================================
 # Common
 #==============================================================================
@@ -51,7 +48,7 @@ taskmanager.numberOfTaskSlots: 3
 # automatically configure the host name based on the hostname of the node where the
 # JobManager runs.
 
-jobmanager.rpc.address: localhost
+jobmanager.rpc.address: jobmanager
 
 # The RPC port where the JobManager is reachable.
 
@@ -216,7 +213,7 @@ web.port: 8081
 # may be enabled in four steps:
 # 1. configure the local krb5.conf file
 # 2. provide Kerberos credentials (either a keytab or a ticket cache w/ kinit)
-# 3. make the credentials available to various JAAS login contexts
+# 3. make the credentials available to various JAAS cd bin contexts
 # 4. configure the connector to use JAAS/SASL
 
 # The below configure how Kerberos credentials are provided. A keytab will be used instead of

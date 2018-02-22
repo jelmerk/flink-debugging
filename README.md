@@ -62,8 +62,17 @@ Allowing traffic to kafka
 
        docker exec -ti flink iptables -A OUTPUT -d kafka -j ACCEPT
 
+Flushing ip tables
 
+       iptables -X && iptables -F
 
+Blocking traffic to task manager
+
+       iptables -A INPUT -i eth0 -p tcp --destination-port 6123 --src taskmanager -j DROP
+
+Listing up tables
+
+       iptables -L -v
 
 
 select * from "org.apache.flink.runtime.execution.librarycache.FlinkUserCodeClassLoaders$ParentFirstClassLoader"
