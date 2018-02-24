@@ -31,6 +31,7 @@ services:
     privileged: true
     volumes:
       - "./flink/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml"
+      - "./flink/log4j.properties:/opt/flink/conf/log4j.properties"
       - "./target:/app"
       - "./heapdumps:/heapdumps"
 
@@ -49,5 +50,6 @@ services:
     privileged: true
     volumes:
       - "./flink/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml"
+      - "./flink/log4j.properties:/opt/flink/conf/log4j.properties"
       - "./target:/app"
       - "./heapdumps:/heapdumps"
