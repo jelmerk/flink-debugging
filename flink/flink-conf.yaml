@@ -239,3 +239,15 @@ web.port: 8081
 # The configuration below must match one of the values set in "security.kerberos.login.contexts"
 # zookeeper.sasl.login-context-name: Client
 
+blob.server.port: 6124
+query.server.port: 6125
+blob.server.port: 6124
+query.server.port: 6125
+blob.server.port: 6124
+query.server.port: 6125
+blob.server.port: 6124
+query.server.port: 6125
+blob.server.port: 6124
+query.server.port: 6125
+blob.server.port: 6124
+query.server.port: 6125

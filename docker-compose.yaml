@@ -27,6 +27,8 @@ services:
     ports:
       - "6123"
       - "8081:8081"
+      - "4005"
+      - "9249"
     links:
       - kafka:kafka
     command: jobmanager
@@ -39,9 +41,11 @@ services:
 
   taskmanager:
     image: ecg/flink_1.4.0-prometheus-hadoop28-scala_2.11
-    expose:
+    ports:
       - "6121"
       - "6122"
+      - "5005"
+      - "9249"
     links:
       - kafka:kafka
       - jobmanager:jobmanager
