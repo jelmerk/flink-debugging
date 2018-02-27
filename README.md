@@ -12,9 +12,9 @@
  
 4. Deploy the job a few times
 
-       docker exec -it flink /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode1
-       docker exec -it flink /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode2
-       docker exec -it flink /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode3
+       docker exec -it jobmanager /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode1
+       docker exec -it jobmanager /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode2
+       docker exec -it jobmanager /opt/flink/bin/flink run -q -d /app/flink-app-1.0.jar implode3
 
 4. View the flink console output 
 
@@ -77,3 +77,11 @@ Listing up tables
 
 select * from "org.apache.flink.runtime.execution.librarycache.FlinkUserCodeClassLoaders$ParentFirstClassLoader"
 
+
+Creating a topic in kafka
+
+       docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic mytopic
+
+Starting more task managers
+
+       docker-compose scale taskmanager=2

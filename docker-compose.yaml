@@ -18,6 +18,8 @@ services:
     environment:
       - KAFKA_ADVERTISED_HOST_NAME=kafka
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    volumes:
+      - "./kafka/server.properties:/opt/kafka/config/server.properties"
 
   jobmanager:
     image: ecg/flink_1.4.0-prometheus-hadoop28-scala_2.11
@@ -37,7 +39,6 @@ services:
 
   taskmanager:
     image: ecg/flink_1.4.0-prometheus-hadoop28-scala_2.11
-    container_name: taskmanager
     expose:
       - "6121"
       - "6122"
