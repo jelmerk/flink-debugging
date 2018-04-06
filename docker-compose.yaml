@@ -23,10 +23,9 @@ services:
 
   jobmanager:
     image: ecg/flink_1.4.0-prometheus-hadoop28-scala_2.11
-    container_name: jobmanager
     ports:
       - "6123"
-      - "8081:8081"
+      - "8081"
       - "4005"
       - "9249"
     links:
