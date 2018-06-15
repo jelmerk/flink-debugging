@@ -22,11 +22,12 @@ services:
       - "./kafka/server.properties:/opt/kafka/config/server.properties"
 
   jobmanager:
-    image: ecg/flink_1.4.0-prometheus-hadoop28-scala_2.11
+    container_name: jobmanager
+    image: ecg/flink_1.4.2-prometheus-hadoop26-scala_2.11
     ports:
       - "6123"
-      - "8081"
-      - "4005"
+      - "8081:8081"
+      - "4005:4005"
       - "9249"
     links:
       - kafka:kafka
@@ -39,13 +40,14 @@ services:
       - "./heapdumps:/heapdumps"
 
   taskmanager:
-    image: ecg/flink_1.4.0-prometheus-hadoop28-scala_2.11
+    image: ecg/flink_1.4.2-prometheus-hadoop26-scala_2.11
     ports:
       - "6121"
       - "6122"
-      - "5005"
+      - "5005:5005"
       - "9249"
     links:
+      - cassandra:cassandra
       - kafka:kafka
       - jobmanager:jobmanager
     command: taskmanager
@@ -57,3 +59,13 @@ services:
       - "./flink/log4j.properties:/opt/flink/conf/log4j.properties"
       - "./target:/app"
       - "./heapdumps:/heapdumps"
+
+
+  cassandra:
+    image: cassandra:3.0.15
+    container_name: cassandra
+    ports:
+      - "7000:7000"
+      - "9042:9042"
+    healthcheck:
+      test: cqlsh -u cassandra -p cassandra < /dev/null
